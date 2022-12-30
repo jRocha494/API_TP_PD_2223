@@ -16,7 +16,21 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User>  getAllUsers(){
+    public List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+    public List<User> getAllRegisteredUsers(){
+        return userRepository.findByIsAuthenticated(1);
+    }
+    public User createUser(User user) {
+        user.setId(null);
+        user.setIsAuthenticated(1);
+        return userRepository.save(user);
+    }
+
+    public User deleteUser(Integer id){
+        User curContact = userRepository.findById(id).get();
+        userRepository.deleteById(id);
+        return curContact;
     }
 }

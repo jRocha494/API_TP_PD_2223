@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    Integer id;
     @Column(name = "nome")
     String name;
     String username;
@@ -17,11 +17,11 @@ public class User {
     @Column(name = "administrador")
     int isAdministrator;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
