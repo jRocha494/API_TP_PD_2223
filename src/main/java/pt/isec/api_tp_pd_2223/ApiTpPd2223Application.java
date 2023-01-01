@@ -63,7 +63,6 @@ public class ApiTpPd2223Application
 
     @Configuration
     @EnableWebSecurity
-    //@EnableGlobalMethodSecurity(prePostEnabled = true)
     public class SecurityConfig
     {
         @Autowired

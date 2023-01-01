@@ -30,7 +30,6 @@ public class UserAuthenticationProvider implements AuthenticationProvider
 
         return new UsernamePasswordAuthenticationToken(username, password, authorities);
     }
-
     @Override
     public boolean supports(Class<?> authentication)
     {
