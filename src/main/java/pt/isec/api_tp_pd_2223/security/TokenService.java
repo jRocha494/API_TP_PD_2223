@@ -17,31 +17,14 @@ import java.util.stream.Collectors;
 public class TokenService
 {
     private final JwtEncoder encoder;
-    private UserRepository userRepository;
 
-    public TokenService(JwtEncoder encoder, UserRepository userRepository)
+    public TokenService(JwtEncoder encoder)
     {
         this.encoder = encoder;
-        this.userRepository = userRepository;
-    }
-
-    public User loginUser(Integer id){
-        var curUser = userRepository.findById(id);
-        curUser.setIsAuthenticated(1);
-        return userRepository.save(curUser);
     }
 
     public String generateToken(Authentication authentication)
     {
-        var user = userRepository.findByUsernameAndPassword(authentication.getName(), authentication.getCredentials().toString());
-        if(user == null)
-            return null;
-
-        if(user.getIsAuthenticated() != 0)
-            return null;
-
-        loginUser(user.getId());
-
         Instant now = Instant.now();
 
         String scope = authentication.getAuthorities().stream()

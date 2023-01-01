@@ -24,7 +24,8 @@ public class UserService {
     }
     public User createUser(User user) {
         user.setId(null);
-        user.setIsAuthenticated(1);
+        user.setIsAuthenticated(0);
+        user.setIsAdministrator(0);
         return userRepository.save(user);
     }
 
@@ -32,5 +33,20 @@ public class UserService {
         User curContact = userRepository.findById(id).get();
         userRepository.deleteById(id);
         return curContact;
+    }
+
+    public boolean loginUser(String username, String password){
+        var user = userRepository.findByUsernameAndPassword(username, password);
+        if(user == null)
+            return false;
+
+        if(user.getIsAuthenticated() != 0)
+            return false;
+
+        var curUser = userRepository.findById(user.getId()).get();
+        curUser.setIsAuthenticated(1);
+        userRepository.save(curUser);
+
+        return true;
     }
 }
