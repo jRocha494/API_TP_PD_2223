@@ -3,6 +3,7 @@ package pt.isec.api_tp_pd_2223.controller;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isec.api_tp_pd_2223.model.Show;
@@ -22,8 +23,16 @@ public class ShowController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<Show>> getAllShows(@RequestParam(required = false) String initialDate,
-                                                  @RequestParam(required = false) String duration){
+    public ResponseEntity<List<Show>> getAllShows(){
+        return ResponseEntity.ok().body(showService.getAllShows());
+    }
+
+    @GetMapping("filter")
+    public ResponseEntity<List<Show>> getFilteredShows(@RequestParam(required = false) String initialDate,
+                                                       @RequestParam(required = false) String duration){
+        if(initialDate == null && duration == null)
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
         Specification<Show> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (initialDate != null) {

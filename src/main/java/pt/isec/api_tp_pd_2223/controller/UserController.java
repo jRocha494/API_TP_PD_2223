@@ -25,12 +25,12 @@ public class UserController {
 
     @GetMapping("all")
     public ResponseEntity<List<User>> getAllUsers(Authentication jwt) {
-        var authority = jwt.getAuthorities().iterator().next();
-
-        if (!authority.getAuthority().contains("ADMIN")) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(null);
-        }
+//        var authority = jwt.getAuthorities().iterator().next();
+//
+//        if (!authority.getAuthority().contains("ADMIN")) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+//                    .body(null);
+//        }
 
         return ResponseEntity.ok().body(userService.getAllUsers());
     }

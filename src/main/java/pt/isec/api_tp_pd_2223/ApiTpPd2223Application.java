@@ -88,6 +88,32 @@ public class ApiTpPd2223Application
         }
 
         @Bean
+        @Order(2)
+        public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception
+        {
+            return http
+                    .csrf(csrf -> csrf.disable())
+                    .securityMatcher("/user/**")
+                    .authorizeHttpRequests(auth -> auth.anyRequest().hasAnyAuthority("SCOPE_ADMIN"))
+                    .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .build();
+        }
+
+        @Bean
+        @Order(2)
+        public SecurityFilterChain showAllFilterChain(HttpSecurity http) throws Exception
+        {
+            return http
+                    .csrf(csrf -> csrf.disable())
+                    .securityMatcher("/show/all")
+                    .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                    .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .build();
+        }
+
+        @Bean
         public SecurityFilterChain genericFilterChain(HttpSecurity http) throws Exception
         {
             return http

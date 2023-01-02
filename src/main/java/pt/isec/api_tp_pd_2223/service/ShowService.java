@@ -19,6 +19,10 @@ public class ShowService {
         this.showRepository = showRepository;
     }
 
+    public List<Show> getAllShows(){
+        return showRepository.findAll();
+    }
+
     public List<Show> getAllShows(Specification<Show> specification){
         return showRepository.findAll(specification);
     }
