@@ -17,12 +17,8 @@ public class BookingService {
         this.bookingRepository = bookingRepository;
     }
 
-    public List<Booking> getAllBookings(){
-        return bookingRepository.findAll();
-    }
-
     public List<Booking> getPaidBookings(Integer paid){
-        Specification<Booking> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("pago"), paid);
+        Specification<Booking> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("paid"), paid);
 
         return bookingRepository.findAll(specification);
     }

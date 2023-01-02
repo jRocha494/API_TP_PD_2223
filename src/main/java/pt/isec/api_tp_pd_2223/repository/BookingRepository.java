@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository  extends JpaRepository<Booking, Integer> {
-    List<Booking> findAll();
     List<Booking> findAll(Specification<Booking> specification);
 }

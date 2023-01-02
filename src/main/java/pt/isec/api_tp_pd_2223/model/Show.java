@@ -29,7 +29,7 @@ public class Show {
     @Column(name = "pais")
     String country;
 
-    @Column(name = "classificacao_")
+    @Column(name = "classificacao_etaria")
     String ageRating;
 
     @Column(name = "visivel")

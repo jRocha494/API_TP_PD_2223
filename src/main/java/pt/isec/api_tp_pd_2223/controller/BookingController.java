@@ -1,6 +1,7 @@
 package pt.isec.api_tp_pd_2223.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +22,11 @@ public class BookingController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<Booking>> getAllBooking(@RequestParam(required = false) Integer paid){
+    public ResponseEntity<List<Booking>> getAllBooking(@RequestParam() Integer paid){
         if(paid == 1 || paid == 0){
             return ResponseEntity.ok().body(bookingService.getPaidBookings(paid));
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-
-        return ResponseEntity.ok().body(bookingService.getAllBookings());
     }
 }
