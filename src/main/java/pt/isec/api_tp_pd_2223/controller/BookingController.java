@@ -21,7 +21,7 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping("all")
+    @GetMapping("filter")
     public ResponseEntity<List<Booking>> getAllBooking(@RequestParam() Integer paid){
         if(paid == 1 || paid == 0){
             return ResponseEntity.ok().body(bookingService.getPaidBookings(paid));
